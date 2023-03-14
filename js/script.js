@@ -24,6 +24,7 @@ formNode.addEventListener('submit', async (e) => {
 		resultNode.classList.remove('error');
 		resultNode.innerHTML = "";
 		resultNode.appendChild(createProfile(data));
+		resultNode.appendChild(createDeleteBtn())
 	} else {
 		resultNode.classList.add('error');
 		resultNode.innerHTML = "Ничего не найдено";	
@@ -34,25 +35,26 @@ formNode.addEventListener('submit', async (e) => {
 
 function createProfile(profileData){
 	const elem = document.createElement ('div');
+	elem.classList.add('profile-wrapper')
 	let out = ''
 	for (let i = 0; i < profileData.items.length; i++) {
 		const elem = profileData.items[i];
 			out += `
-		<div class="profile">
-			<img class="search-img" src=${elem.owner.avatar_url}></img>	
-			<p class="search-texst"><span>Имя: </span><a href="${elem.html_url}" target="_blank">${elem.name}</a></p>
-			<p class="search-texst"><span>Описание: </span>${elem.description}</p>
-			<p class="search-texst"><span>Дата создания: </span>${elem.created_at} </p>
-			<p class="search-texst"><span>Дата последнего обновления: </span>${elem.updated_at}</p>
-		</div>	
+			<div class="item-container">
+				<div class="profile">
+					<img class="search-img" src=${elem.owner.avatar_url}></img>	
+					<p class="search-texst"><span>Имя: </span><a href="${elem.html_url}" target="_blank">${elem.name}</a></p>
+					<p class="search-texst"><span>Описание: </span>${elem.description}</p>
+					<p class="search-texst"><span>Дата создания: </span>${elem.created_at} </p>
+					<p class="search-texst"><span>Дата последнего обновления: </span>${elem.updated_at}</p>
+				</div>	
+			</div>
 	`		
 	 if (i == 9) break
 	}
 
 	elem.innerHTML = out;
 	
-	elem.appendChild(createDeleteBtn())
-
 	return elem
 }
 
